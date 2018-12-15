@@ -21,7 +21,7 @@ class MyApp extends StatelessWidget {
 
   Widget getFetchBuilder() {
     return FutureBuilder<List<Article>>(
-      future: repo.fetchTopArticles(),
+      future: repo.fetchTopArticles(TopArticleRequest(page: 1, country: "in")),
       builder: (BuildContext context, AsyncSnapshot snapshot) {
         if (snapshot.hasData) {
           return ArticleListPageWidget(
