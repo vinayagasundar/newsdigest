@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:newsdigest/model/article.dart';
+import 'package:url_launcher/url_launcher.dart';
 
 class ArticleListPageWidget extends StatelessWidget {
   final List<Article> articles;
@@ -9,6 +10,7 @@ class ArticleListPageWidget extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return PageView.builder(
+      scrollDirection: Axis.vertical,
       itemCount: articles.length,
       itemBuilder: (BuildContext context, int index) {
         return getArticleWidget(articles[index], context);
@@ -46,30 +48,43 @@ class ArticleListPageWidget extends StatelessWidget {
 
   Widget bottomInfoCard(Article article, BuildContext context) {
     return new SizedBox(
-      height: 180.0,
-      child: Card(
-          margin: EdgeInsets.all(8.0),
-          child: Padding(
-            padding: EdgeInsets.all(16),
-            child: Column(
-              children: <Widget>[
-                Text(
-                  article.title,
-                  maxLines: 2,
-                  overflow: TextOverflow.ellipsis,
-                  style: Theme.of(context)
-                      .textTheme
-                      .headline
-                      .merge(TextStyle(fontWeight: FontWeight.w700)),
+        height: 180.0,
+        child: GestureDetector(
+          onTap: () {
+            _launchUrl(article.url);
+          },
+          child: Card(
+              margin: EdgeInsets.all(8.0),
+              child: Padding(
+                padding: EdgeInsets.all(16),
+                child: Column(
+                  children: <Widget>[
+                    Text(
+                      article.title,
+                      maxLines: 2,
+                      overflow: TextOverflow.ellipsis,
+                      style: Theme.of(context)
+                          .textTheme
+                          .headline
+                          .merge(TextStyle(fontWeight: FontWeight.w700)),
+                    ),
+                    Padding(
+                      padding: EdgeInsets.only(top: 4),
+                      child: Text(article.description,
+                          maxLines: 3,
+                          style: Theme.of(context).textTheme.subhead),
+                    ),
+                  ],
                 ),
-                Padding(
-                  padding: EdgeInsets.only(top: 4),
-                  child: Text(article.description,
-                      maxLines: 3, style: Theme.of(context).textTheme.subhead),
-                ),
-              ],
-            ),
-          )),
-    );
+              )),
+        ));
+  }
+
+  _launchUrl(url) async {
+    if (await canLaunch(url)) {
+      await launch(url);
+    } else {
+      throw 'Could not launch $url';
+    }
   }
 }
