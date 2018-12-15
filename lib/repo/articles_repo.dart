@@ -15,7 +15,9 @@ class _ArticleRepoImpl implements ArticleRepo {
   @override
   Future<List<Article>> fetchTopArticles() async {
     final response = await http.get(
-        'https://newsapi.org/v2/top-headlines?apiKey=' + API_KEY + '&country=in');
+        'https://newsapi.org/v2/top-headlines?apiKey=' +
+            API_KEY +
+            '&country=in');
 
     if (response.statusCode == 200) {
       return _parseArticleList(json.decode(response.body));

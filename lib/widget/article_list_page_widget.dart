@@ -22,12 +22,22 @@ class ArticleListPageWidget extends StatelessWidget {
           height: 200.0,
         ),
         decoration: new BoxDecoration(
-          image: new DecorationImage(
-            image: new NetworkImage(article.urlToImage),
-            repeat: ImageRepeat.noRepeat,
-            fit: BoxFit.cover,
-          ),
-        ),
+            image: new DecorationImage(
+              image: new NetworkImage(article.urlToImage),
+              repeat: ImageRepeat.noRepeat,
+              fit: BoxFit.cover,
+            ),
+            gradient: LinearGradient(
+              begin: Alignment.topRight,
+              end: Alignment.bottomRight,
+              stops: [0.1, 0.5, 0.7, 0.9],
+              colors: [
+                Colors.blue[800],
+                Colors.blue[700],
+                Colors.blue[600],
+                Colors.blue[400],
+              ],
+            )),
         child: Stack(
           alignment: const Alignment(1, 1),
           children: <Widget>[bottomInfoCard(article, context)],
