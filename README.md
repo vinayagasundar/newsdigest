@@ -2,6 +2,8 @@
 
 Display the news information from the [NewsApi](http://newsapi.org)
 
+<img width="200px" height="400px" src="https://github.com/vinayagasundar/newsdigest/blob/master/docs/example.gif?raw=true" />
+
 ## Getting Started
 
 This project is a starting point for a Flutter application.
